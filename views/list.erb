@@ -1,16 +1,21 @@
-<h1><%=@list.name%></h1>
+<h1><%=@list.name()%></h1>
 
 <% if @tasks.any?() %>
-  <h3>Here are your lists:</h3>
+  <h3>Here are your tasks:</h3>
 
   <ul>
     <% @tasks.each() do |task| %>
-    <% if task.list_id == @list.id %>
-      <li><%= task.description() %></a> </li>
+    <% if task.id == @list.id %>
+      <li><%= task.description() %><a href="/tasks/<%=task.id()%>/edit">Update this task's description</a> </li>
       <% end %>
     <% end %>
   </ul>
-
+<h3> Here are your tasks not yet done</h3>
+<ul>
+  <% @tasks.not_done().each do |task| %>
+    <li><%= task.description %></li>
+  <% end %>
+</ul>
 <% else %>
 
     <p>There are no tasks yet!</p>
